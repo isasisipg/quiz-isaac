@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('Quiz', 
-				{pregunt: DataTypes.STRING,
+				{pregunta: DataTypes.STRING,
 				 respuesta: DataTypes.STRING,
 				});
 }
