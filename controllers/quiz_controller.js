@@ -28,7 +28,14 @@ exports.answer = function(req, res){
 
 // GET /quizes
 exports.index = function(req, res){
-	models.Quiz.findAll().then(function(quizes){
-		res.render('quizes/index', { quizes: quizes });
-	}).catch(function(error) { next(error); });
+	console.log("busqueda: "+req.query.search);
+	if (req.query.search === undefined) {
+		models.Quiz.findAll().then(function(quizes){
+			res.render('quizes/index', { quizes: quizes });
+		}).catch(function(error) { next(error); });
+	} else {
+		models.Quiz.findAll({where: ["pregunta like ?", "%"+req.query.search.replace("+","%")+"%"]}).then(function(quizes){
+			res.render('quizes/index', { quizes: quizes });
+		}).catch(function(error) { next(error); });
+	}
 };
