@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Helpers dinámicos:
 app.use(function(req, res, next){
     // Guardar path en session.redir para despues de login
-    if (!req.path.match(/\/login|\/logout/)) {
+    if (!req.path.match(/\/login|\/logout|\/stylesheets/)) {
         req.session.redir = req.path;
     }
     // Hacer visible req.session en las vistas
@@ -39,7 +39,24 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use('/', routes);
+app.use('/', function(req, res, next) {
+    var hora_act = new Date();
+    var hora_ant = req.session.time ? new Date(req.session.time) : new Date();
+    if (!req.path.match(/\/login|\/logout/)) {
+        if ((hora_act.getMinutes() - 2) >= hora_ant.getMinutes()) {
+           req.session.errors = [{"message": 'Sessión Caducada.'}];
+           delete req.session.user;
+           res.render('sessions/new', {errors: req.session.errors});
+        } else {
+            // refrescamos tiempo ultima peticion
+            req.session.time = new Date();
+            next();
+        }
+    } else {
+            next();
+    }
+    
+}, routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

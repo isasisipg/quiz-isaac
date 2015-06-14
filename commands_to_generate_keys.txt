@@ -1,0 +1,3 @@
+openssl genrsa -out C:\Users\Eli\Desktop\Curso\proyectos\quiz\certs\quiz-2015-key.pem 2048
+openssl req -new -sha256 -key C:\Users\Eli\Desktop\Curso\proyectos\quiz\certs\quiz-2015-key.pem -out C:\Users\Eli\Desktop\Curso\proyectos\quiz\certs\quiz-2015-csr.pem
+openssl x509 -req -in C:\Users\Eli\Desktop\Curso\proyectos\quiz\certs\quiz-2015-csr.pem -signkey  C:\Users\Eli\Desktop\Curso\proyectos\quiz\certs\quiz-2015-key.pem -out  C:\Users\Eli\Desktop\Curso\proyectos\quiz\certs\quiz-2015-cert.pem

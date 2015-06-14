@@ -11,7 +11,7 @@ exports.loginRequired = function(req, res, next) {
 exports.new = function(req, res) {
 	var errors = req.session.errors || {};
 	req.session.errors = {};
-
+console.log("Error: "+errors)
 	res.render('sessions/new', {errors: errors});
 };
 
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 		// Crear req.session.user y guardar campos id y username
 		// La sesión se define por la existencia de: req.session.user
 		req.session.user = {id:user.id, username:user.username};
-		console.log("Redirección: "+req.session.redir.toString());
+		req.session.time = new Date();
 		res.redirect(req.session.redir.toString()); //Redirección al path anterior a login
 	});
 };
