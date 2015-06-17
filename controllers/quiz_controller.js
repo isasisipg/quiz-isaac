@@ -31,7 +31,6 @@ exports.answer = function(req, res){
 
 // GET /quizes
 exports.index = function(req, res){
-	console.log("busqueda: "+req.query.search);
 	if (req.query.search === undefined) {
 		models.Quiz.findAll().then(function(quizes){
 			res.render('quizes/index', { quizes: quizes, errors: [] });

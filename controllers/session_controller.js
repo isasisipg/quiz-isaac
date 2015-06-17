@@ -11,7 +11,6 @@ exports.loginRequired = function(req, res, next) {
 exports.new = function(req, res) {
 	var errors = req.session.errors || {};
 	req.session.errors = {};
-console.log("Error: "+errors)
 	res.render('sessions/new', {errors: errors});
 };
 
